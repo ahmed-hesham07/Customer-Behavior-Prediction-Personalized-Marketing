@@ -4,9 +4,9 @@ Configuration management for the Customer Behavior Prediction system.
 import os
 from dotenv import load_dotenv
 from dataclasses import dataclass
-from typing import Optional
 
 load_dotenv()
+
 
 @dataclass
 class EmailConfig:
@@ -17,19 +17,22 @@ class EmailConfig:
     password: str
     use_tls: bool
 
+
 @dataclass
 class ModelConfig:
     """Machine learning model configuration."""
     random_state: int
     test_size: float
     n_estimators: int
-    
+
+
 @dataclass
 class MarketingConfig:
     """Marketing campaign configuration."""
     high_value_discount: float
     regular_discount: float
     voucher_amount: int
+
 
 class Config:
     """Main configuration class."""
@@ -61,6 +64,7 @@ class Config:
             print("Warning: Email credentials not configured")
             return False
         return True
+
 
 # Global configuration instance
 config = Config()

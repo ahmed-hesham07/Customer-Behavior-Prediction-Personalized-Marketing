@@ -2,13 +2,12 @@
 Data processing and analysis module for customer behavior prediction.
 """
 import pandas as pd
-import numpy as np
-from typing import Tuple, Dict, List
+from typing import Dict
 import logging
-from datetime import datetime
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class DataProcessor:
     """Handles data loading, cleaning, and preprocessing."""
@@ -132,26 +131,37 @@ class DataProcessor:
         rfm = rfm.reset_index()
         
         # Create quintiles for each metric
-        rfm['R_Score'] = pd.qcut(rfm['Recency'], 5, labels=[5,4,3,2,1])
-        rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), 5, labels=[1,2,3,4,5])
-        rfm['M_Score'] = pd.qcut(rfm['Monetary'].rank(method='first'), 5, labels=[1,2,3,4,5])
+        rfm['R_Score'] = pd.qcut(rfm['Recency'], 5, labels=[5, 4, 3, 2, 1])
+        rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), 5,
+                                 labels=[1, 2, 3, 4, 5])
+        rfm['M_Score'] = pd.qcut(rfm['Monetary'].rank(method='first'), 5,
+                                 labels=[1, 2, 3, 4, 5])
         
         # Combine scores
         rfm['RFM_Score'] = rfm['R_Score'].astype(str) + rfm['F_Score'].astype(str) + rfm['M_Score'].astype(str)
         
         # Define customer segments
         def segment_customers(rfm_score):
-            if rfm_score in ['555', '554', '544', '545', '454', '455', '445']:
+            if rfm_score in ['555', '554', '544', '545', '454', '455',
+                             '445']:
                 return 'Champions'
-            elif rfm_score in ['543', '444', '435', '355', '354', '345', '344', '335']:
+            elif rfm_score in ['543', '444', '435', '355', '354', '345',
+                               '344', '335']:
                 return 'Loyal Customers'
-            elif rfm_score in ['512', '511', '422', '421', '412', '411', '311']:
+            elif rfm_score in ['512', '511', '422', '421', '412', '411',
+                               '311']:
                 return 'Potential Loyalists'
-            elif rfm_score in ['533', '532', '531', '523', '522', '521', '515', '514', '513', '425', '424', '413', '414', '415', '315', '314', '313']:
+            elif rfm_score in ['533', '532', '531', '523', '522', '521',
+                               '515', '514', '513', '425', '424', '413',
+                               '414', '415', '315', '314', '313']:
                 return 'New Customers'
-            elif rfm_score in ['155', '154', '144', '214', '215', '115', '114']:
+            elif rfm_score in ['155', '154', '144', '214', '215', '115',
+                               '114']:
                 return 'At Risk'
-            elif rfm_score in ['255', '254', '245', '244', '253', '252', '243', '242', '235', '234', '225', '224', '153', '152', '145', '143', '142', '135', '134', '125', '124']:
+            elif rfm_score in ['255', '254', '245', '244', '253', '252',
+                               '243', '242', '235', '234', '225', '224',
+                               '153', '152', '145', '143', '142', '135',
+                               '134', '125', '124']:
                 return 'Cannot Lose Them'
             else:
                 return 'Others'

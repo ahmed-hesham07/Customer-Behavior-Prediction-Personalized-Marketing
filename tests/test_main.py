@@ -15,6 +15,7 @@ from src.data.processor import DataProcessor
 from src.models.predictor import CustomerBehaviorPredictor
 from src.marketing.email_campaigns import EmailCampaignManager, EmailTemplate
 
+
 class TestDataProcessor(unittest.TestCase):
     """Test cases for DataProcessor class."""
     
@@ -73,6 +74,7 @@ class TestDataProcessor(unittest.TestCase):
         self.assertEqual(summary['unique_customers'], 2)
         self.assertEqual(summary['unique_items'], 3)
 
+
 class TestEmailTemplate(unittest.TestCase):
     """Test cases for EmailTemplate class."""
     
@@ -101,6 +103,7 @@ class TestEmailTemplate(unittest.TestCase):
         self.assertIn("Bob", template)
         for product in products:
             self.assertIn(product, template)
+
 
 class TestCustomerBehaviorPredictor(unittest.TestCase):
     """Test cases for CustomerBehaviorPredictor class."""
@@ -136,6 +139,7 @@ class TestCustomerBehaviorPredictor(unittest.TestCase):
         self.assertEqual(len(X), len(self.test_data))
         self.assertEqual(len(y), len(self.test_data))
 
+
 class TestEmailCampaignManager(unittest.TestCase):
     """Test cases for EmailCampaignManager class."""
     
@@ -159,6 +163,7 @@ class TestEmailCampaignManager(unittest.TestCase):
         self.assertIn('summary', report)
         self.assertIn('recent_emails', report)
         self.assertIn('campaigns_by_type', report)
+
 
 if __name__ == '__main__':
     unittest.main()

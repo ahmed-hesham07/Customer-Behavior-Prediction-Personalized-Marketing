@@ -4,10 +4,8 @@ Data visualization and analytics dashboard for customer behavior insights.
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import numpy as np
 from typing import Dict, Any
 import logging
 from datetime import datetime
@@ -18,6 +16,7 @@ logger = logging.getLogger(__name__)
 # Set style for matplotlib
 plt.style.use('seaborn-v0_8')
 sns.set_palette("husl")
+
 
 class CustomerAnalyticsDashboard:
     """Comprehensive analytics dashboard for customer behavior analysis."""
@@ -220,8 +219,8 @@ class CustomerAnalyticsDashboard:
         high_conf = predictions['high_confidence_customers']
         if high_conf:
             conf_df = pd.DataFrame(high_conf)
-            conf_dist = conf_df['prediction_confidence'].hist(bins=20, ax=axes[1, 0], 
-                                                            color='green', alpha=0.7)
+            conf_df['prediction_confidence'].hist(bins=20, ax=axes[1, 0],
+                                                   color='green', alpha=0.7)
             axes[1, 0].set_title('High Confidence Predictions Distribution')
             axes[1, 0].set_xlabel('Prediction Confidence')
             axes[1, 0].set_ylabel('Frequency')
@@ -321,7 +320,9 @@ class CustomerAnalyticsDashboard:
 - **Recommendation Campaigns**: {campaign_report['summary']['recommendations_sent']}
 
 ## Top 5 Most Popular Items
-{chr(10).join([f"{i+1}. {item} ({count} purchases)" for i, (item, count) in enumerate(list(overview['top_items'].items())[:5])])}
+{chr(10).join([f"{i + 1}. {item} ({count} purchases)"
+               for i, (item, count) in
+               enumerate(list(overview['top_items'].items())[:5])])}
 
 ## Recommendations
 1. **Focus on Champions and Loyal Customers**: Increase engagement with high-value segments

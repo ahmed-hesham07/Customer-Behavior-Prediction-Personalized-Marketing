@@ -5,7 +5,6 @@ import sys
 import os
 import pandas as pd
 import logging
-from datetime import datetime
 
 # Add src directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -27,6 +26,7 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
 
 class CustomerBehaviorAnalysisSystem:
     """Main system orchestrating all components."""
@@ -245,7 +245,7 @@ class CustomerBehaviorAnalysisSystem:
             data_summary = self.run_data_analysis()
             
             # Run predictive modeling
-            model_results = self.run_predictive_modeling()
+            self.run_predictive_modeling()
             
             # Run marketing campaigns
             campaign_results = self.run_marketing_campaigns(dry_run)
@@ -285,6 +285,7 @@ class CustomerBehaviorAnalysisSystem:
             logger.error(f"Analysis failed: {str(e)}")
             raise
 
+
 def main():
     """Main application entry point."""
     print("🚀 Enhanced Customer Behavior Prediction & Personalized Marketing System")
@@ -308,6 +309,7 @@ def main():
     except Exception as e:
         print(f"❌ System error: {str(e)}")
         logger.error(f"System error: {str(e)}", exc_info=True)
+
 
 if __name__ == "__main__":
     main()

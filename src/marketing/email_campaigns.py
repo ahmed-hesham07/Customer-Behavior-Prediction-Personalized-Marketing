@@ -2,11 +2,8 @@
 Email marketing system for personalized customer campaigns.
 """
 import smtplib
-import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
 import pandas as pd
 from typing import List, Dict, Any
 import logging
@@ -15,6 +12,7 @@ from config.settings import config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class EmailTemplate:
     """Email template management."""
@@ -85,6 +83,7 @@ class EmailTemplate:
         This email was sent because you're a valued customer.
         If you wish to unsubscribe, please reply with 'UNSUBSCRIBE'.
         """
+
 
 class EmailCampaignManager:
     """Manages email marketing campaigns."""
